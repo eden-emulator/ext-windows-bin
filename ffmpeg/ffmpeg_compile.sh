@@ -54,15 +54,21 @@ cd build
     --disable-vdpau \
     --enable-decoder={h264,vp8,vp9} \
     --enable-avfilter \
-    --enable-hwaccel={h264_dxva2,h264_d3d11va,h264_d3d11va2,h264_nvdec,vp8_nvdec,vp9_dxva2,vp9_d3d11va,vp9_d3d11va2,vp9_nvdec} \
+    --enable-hwaccel={h264_dxva2,h264_d3d11va,h264_d3d11va2,h264_nvdec,h264_vulkan,vp8_nvdec,vp9_dxva2,vp9_d3d11va,vp9_d3d11va2,vp9_nvdec} \
     --enable-shared \
     --enable-filter=yadif,scale \
+    --enable-dxva2 \
     --enable-d3d11va \
+    --enable-amf \
     --enable-nvdec \
     --enable-ffnvcodec \
     --enable-cuvid \
+    --enable-vulkan \
     --extra-cflags=-I/usr/local/cuda/include \
     --extra-ldflags=-L/usr/local/cuda/lib64 \
+    --extra-cflags=-I/usr/local/vulkan-sdk/x86_64/include \
+    --extra-ldflags=-L/usr/local/vulkan-sdk/x86_64/lib \
+    --extra-cflags=-I/usr/local/include/AMF \
     --prefix=/
 make -j$(nproc)
 
@@ -70,6 +76,5 @@ mkdir ${INSTALL_DIR}
 make install DESTDIR=${INSTALL_DIR}
 cp ${THIS} ${INSTALL_DIR}
 echo -n ${REQUIRED_DLLS} > ${INSTALL_DIR}/${REQUIRED_DLLS_NAME}
-cp ../libavcodec/codec_internal.h config.h ${INSTALL_DIR}/include/libavcodec/
 cp $(find /usr/x86_64-w64-mingw32/ | grep libwinpthread-1.dll | head -n 1) ${INSTALL_DIR}/bin
 7z a ${INSTALL_DIR}.7z ${INSTALL_DIR}
