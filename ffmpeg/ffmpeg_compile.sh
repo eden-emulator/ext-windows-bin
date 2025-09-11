@@ -8,8 +8,8 @@ export PKG_CONFIG_PATH=/usr/local/lib/pkgconfig/
 set -e
 
 THIS=$(readlink -e $0)
-VERSION=7.1.1
-BRANCH=release/7.1
+VERSION=8.0
+BRANCH=release/8.0
 INSTALL_DIR=ffmpeg-${VERSION}
 
 REQUIRED_DLLS_NAME=requirements.txt
@@ -48,13 +48,12 @@ cd build
     --disable-ffprobe \
     --disable-iconv \
     --disable-network \
-    --disable-postproc \
     --disable-swresample \
     --disable-vaapi \
     --disable-vdpau \
     --enable-decoder={h264,vp8,vp9} \
     --enable-avfilter \
-    --enable-hwaccel={h264_dxva2,h264_d3d11va,h264_d3d11va2,h264_nvdec,h264_vulkan,vp8_nvdec,vp9_dxva2,vp9_d3d11va,vp9_d3d11va2,vp9_nvdec} \
+    --enable-hwaccel={h264_dxva2,h264_d3d11va,h264_d3d11va2,h264_nvdec,h264_vulkan,vp8_nvdec,vp9_dxva2,vp9_d3d11va,vp9_d3d11va2,vp9_nvdec,vp9_vulkan} \
     --enable-shared \
     --enable-filter=yadif,scale \
     --enable-dxva2 \
